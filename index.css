@@ -1,0 +1,11 @@
+#bg-col {
+	background:  linear-gradient(to right, rgb(17, 17, 17) 10%, rgb(220, 220, 220) 10%);
+}
+
+#text-col {
+	font-size: 140px;
+	background:  linear-gradient(to right, rgb(220, 220, 220) 10%, rgb(17, 17, 17) 10%);
+	background-clip: text;
+	-webkit-background-clip:  text;
+	-webkit-text-fill-color:  transparent;
+}
