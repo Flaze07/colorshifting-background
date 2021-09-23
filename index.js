@@ -7,35 +7,34 @@ var lightCol = "rgb(220, 220, 220)";
 var screenWidth = window.screen.availWidth;
 
 var firstTime = false;
-var oldWidth;
+var oldPos;
+
+var mousePos;
 
 var checkAnimateTimeout;
 
 function handleMouseMovement(event) {
-	var widthPercentage = (event.pageX * 100) / screenWidth;
 	if(!firstTime) {
-		firstTime = true;
+		oldWidth = event.pageX;
+		var widthPercentage = (oldWidth * 100) / screenWidth;
 		bg.style.background = changeColorPercentage(darkCol, lightCol, widthPercentage);
 		var txtStyle = ";font-size: 140px;background-clip: text;-webkit-background-clip:  text;-webkit-text-fill-color:  transparent;";
 		txt.setAttribute("style", "background: " + changeColorPercentage(lightCol, darkCol, widthPercentage) + txtStyle);
-		oldWidth = event.pageX;
+		firstTime = true;
+		animateColorChange();
 	} else {
-		if(checkAnimateTimeout) {
-			clearTimeout(checkAnimateTimeout);
-		}
-		animateColorChange(event.pageX);
+		mousePos = event.pageX;
 	}
 }
 
-function animateColorChange(mousePos) {
-	oldWidth = lerp(oldWidth, mousePos, 0.5);
+function animateColorChange() {
+	oldWidth = lerp(oldWidth, mousePos, 0.1);
+	console.log(oldWidth);
 	var widthPercentage = (oldWidth * 100) / screenWidth;
 	bg.style.background = changeColorPercentage(darkCol, lightCol, widthPercentage);
 	var txtStyle = ";font-size: 140px;background-clip: text;-webkit-background-clip:  text;-webkit-text-fill-color:  transparent;";
 	txt.setAttribute("style", "background: " + changeColorPercentage(lightCol, darkCol, widthPercentage) + txtStyle);
-	if(oldWidth != mousePos) {
-		checkAnimateTimeout = setTimeout(animateColorChange, 100);
-	}
+	setTimeout(animateColorChange, 10);
 }
 
 function changeColorPercentage(firstCol, secondCol, percentage) {
