@@ -47,7 +47,11 @@ window.addEventListener("mouseon", e => console.log("yes"));
 
 //helper function gathered form internet
 function lerp(a, b, n) {
-  return (1 - n) * a + n * b;
+	var result = (1-n) * a + n * b;
+	if(isNaN(result)) {
+		result = b;
+	}
+	return result;
 }
 
 // font-size: 140px;
